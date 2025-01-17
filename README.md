@@ -7,7 +7,7 @@ This project receives tasks from various providers and assigns them to developer
 1.  Clone the repository:
 
     ```bash
-    git clone [https://github.com/enderakgul/ea-task-manager.git](https://github.com/enderakgul/ea-task-manager.git)
+    git clone https://github.com/enderakgul/ea-task-manager.git
     ```
 
 2.  Navigate to the project directory:
