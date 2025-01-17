@@ -13,6 +13,7 @@ class TaskHelper
 
     public function setDeveloper($developer): void
     {
+        // Task için yazılımcı ataması yapılır.
         $this->task->developer_id = $developer;
         $this->task->save();
     }

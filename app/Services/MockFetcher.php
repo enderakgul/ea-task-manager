@@ -22,14 +22,11 @@ class MockFetcher
     {
         try {
             $response = Http::get($this->url);
-
-            // Check for successful response (status code 2xx)
             if ($response->successful()) {
-
-                // Attempt to decode the JSON response
+                // Json sonuçu array olarak güncellenir
                 $data = $response->json();
 
-                // Check if JSON decoding was successful and data is an array
+                // JSON decodingde sorun var mi kontrol edilir
                 if (is_array($data)) {
                     $adaptedData = [];
                     foreach ($data as $task) {
@@ -38,23 +35,23 @@ class MockFetcher
                         } elseif ($this->provider == 'provider2') {
                             $adaptedData[] = new Provider2Adapter($task);
                         } else {
-                            Log::error("Unknown provider: " . $this->provider);
+                            Log::error("Provider sorunu: " . $this->provider);
                             return null;
                         }
                     }
                     return $adaptedData;
                 } else {
-                    Log::error("Invalid JSON format received from URL: " . $this->url);
+                    Log::error("JSON format sorunu URL: " . $this->url);
                     return null;
                 }
             } else {
                 // Log the error with the status code
-                Log::error("HTTP request failed with status code: " . $response->status() . " for URL: " . $this->url);
+                Log::error("HTTP request sorunu: " . $response->status() . " URL: " . $this->url);
                 return null;
             }
         } catch (\Exception $e) {
             // Catch any exceptions during the process (e.g., network errors)
-            Log::error("Error fetching data from URL " . $this->url . ": " . $e->getMessage());
+            Log::error("Provider datası çekilmesinde sorun oluştu " . $this->url . ": " . $e->getMessage());
             return null;
         }
     }

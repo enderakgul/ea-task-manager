@@ -20,6 +20,7 @@ class TaskObserve
      */
     public function updated(Task $task): void
     {
+        // Task güncellendiğinde yazılımcının toplam iş yükünü güncelle
         $developerHelper = new DeveloperHelper();
         $developerHelper->updateWorkLoad($task->developer);
     }
