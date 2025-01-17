@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Developer;
+use App\Models\Task;
+use App\Services\TaskAssigner;
+use App\Services\TaskHelper;
+
+class AssigmentController extends Controller
+{
+    public function assign()
+    {
+        $tasks = Task::orderBy('zorluk', 'desc')->get();
+        $developers = Developer::all();
+
+        $taskAssigner = new TaskAssigner();
+        $assigments = $taskAssigner->assignTasks($tasks, $developers);
+
+        foreach ($tasks as $task) {
+            $taskHelper = new TaskHelper($task);
+            $taskHelper->setDeveloper($assigments[$task->id]);
+        }
+
+        return redirect()->route('home');
+    }
+}
